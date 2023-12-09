@@ -29,7 +29,7 @@
 * V3.2 - fixed eeprom save issue
 * V3.3 - cloud cover percent issue
 * V3.4 - trying to fix occasional crash with disabled heater
-* 
+* V3.5 - library updates and variable naming improvements
 */
 
 #include <SoftwareSerial.h>
@@ -43,26 +43,26 @@
 #include <math.h>          // for ln() function
 #include <BlueDot_BME280.h>  // for reading Bosch BME sensor and calibration
 #include <string.h>
-#include <EEPROM.h>
+#include <EEPROM.h>  // note this is not the same as eeprom.h
 
-enum MessageIndex { mag, RH, hPa, temp, skygain, skyoffset, skyhighT, cloud100, cloud0, rainlimit, reset, buzzer } ;
-const int wordlength = 12;  // perameters in message
+enum messageIndex { mag, RH, hPa, temp, skygain, skyoffset, skyhighT, cloud100, cloud0, rainlimit, reset, buzzer } ;
+const int messageParameters = 12;  // perameters in message
 
 // trim values and defaults
 double magOffset = 0;  // added to log2.5 light level to create sky magnitude;
-double rhtrim = 0;  // to modify output humidity %
-double hpatrim = 0; // to modify output pressure
-double temptrim = 0;  // to modifiy output ambient temp
-double gain = 33;  // sky gain coefficient
-double offset = 0;   // sky offset coefficient
+double humidityTrim = 0;  // to modify output humidity %
+double pressureTrim = 0; // to modify output pressure
+double temperatureTrim = 0;  // to modifiy output ambient temp
+double skyGain = 33;  // sky gain coefficient
+double skyOffset = 0;   // sky offset coefficient
 double highT = 4;   // sky coefficient (high t )
-double SkyUL = 10; // 100% cloud cover (initial value)
-double SkyLL = -10; // 0% cloud cover (iniitial value)
-const double skyTmax = 25;
-const double skyTmin = -25;
-double rainalarm = 2.0;  // threshold for rain alarm
-String restart, buzzenable;  // strings for commands from ascom
-const char delim = ','; // command string delimeter
+double skyUL = 10; // 100% cloud cover (initial value)
+double skyLL = -10; // 0% cloud cover (iniitial value)
+const double skyT_max = 25;  //  limits for sky temperature
+const double skyT_min = -25;
+double rainAlarm = 2.0;  // threshold for rain alarm
+String restart, buzzEnable;  // strings for commands from ascom
+const char messageDelimeter = ','; // command string delimeter
 
 // Cloud Monitor MLX90614 parameters and objects
 const uint8_t IRsdaPin = 4;  // soft SDA line
@@ -84,59 +84,58 @@ const uint8_t cmdSleep = 0xff;
 // ambient/sky/skydiff come from MLX, tempC/humidity/pressure come from BME, skymag from TSL and rainRatio from cap sensor.
 // populated with defaults
 double ambient = 10.0; // MLX ambient reading
-double skytemp = 10.0;  // MLX sky temp
+double skyTemp = 10.0;  // MLX sky temp
 double tempC = 10.0;   // ambient temp (BME)
 double humidity = 50.0;  // humidity (BME)
 double pressure = 1000.0; // pressure (BME)
 double skymag = 18.0;  // sky quality (TLS)
-double rainRatio = 1.0;  // raining ratio 1= dry
-double adjtemp = 10; // adjusted sky temp
-double cloudcover = 100; // % cloud
+double adjustTempIR = 10; // adjusted sky temp
+double cloudCover = 100; // % cloud
 
 // Define display seven seg TM1637 Pins
 const uint8_t CLK=  3;
 const uint8_t DIO = 2;
 TM1637TinyDisplay display(CLK, DIO);  // define LED display object
-boolean displaymode = false; // used to change what is displayed
-boolean rainblink = false;
+boolean displayMode = false; // used to change what is displayed
+boolean blinkRain = false;
 
 //TSL light sensor magnitude conversion global constants
 const uint8_t TSLpin = 6; // pin number for light sensor input
-constexpr auto logmag = 0.92103;  // for log conversion from base e to base 2.5;
+constexpr auto logMag = 0.92103;  // for log conversion from base e to base 2.5;
 unsigned long lightTimeout = 40000000; // light sensor mode timeout period (35 seconds ~ M22)
 
 // rain detector parameters
 const uint8_t rainSensorInPin = 9;  // rain sensor sense input (high Z, no pullup)
 const uint8_t rainSensorOutPin = 10; // rain sensor charge/discharge pin (through 2.2M ohm)
 const uint8_t NTCpin = 0; // temp sensor on rain sensor
-const uint8_t Heatpin = 8; // output for turning on rain sensor heater
-const uint8_t Readoutpin = 7; // pullup input for reading momentary action switch
-const uint16_t timeOut_us = 10000; // rain sensor timout period  (us) equiv to about 2n2F, 20x dry capacitance
-const float RainHeatThresh = 1.05; // rain heater damp threshold
+const uint8_t heatPin = 8; // output for turning on rain sensor heater
+const uint8_t readoutPin = 7; // pullup input for reading momentary action switch
+const uint16_t timeOut_us = 10000; // rain sensor timout period  (microseconds) equiv to about 2n2F, 20x dry capacitance
+const float rainHeatThreshold = 1.05; // rain heater dampness threshold
 
-const float HeaterAmbThreshold = 10.0;  // ambient temp heater threshold
-const float humiditythreshold = 75.0;  // humidity threshold for heater
+const float heaterAmbThreshold = 10.0;  // ambient temp heater threshold
+const float humidityThreshold = 75.0;  // humidity threshold for heater
 const float NTCthreshold = 470;  // threshold for NTC heater
-double drytime = 10.0; // initial value for RC reference time when lowest capacitance (dry)
-double rainratio = 1.0;  // initial ratio
-const uint8_t RelayPin = 11;  // potential for relay output/buzzer output
+double dryTime = 10.0; // initial value for RC reference time when lowest capacitance (dry)
+double rainRatio = 1.0;  // initial ratio (dry)
+const uint8_t relayPin = 11;  // potential for relay output/buzzer output
 bool buzz = true;  // flag for buzzer enable
 String cmd;  // for received string commands from serial port via ASCOM
 const unsigned long baud = 115200; // serial baud rate
-String NanoStatus [wordlength];  //  " mag, RH, hPa, temp, skygain, offset, skyhighT, cloud100, cloud0, rainlimit, reset,buzzer#"
+String nanoStatus [messageParameters];  //  " mag, RH, hPa, temp, skygain, offset, skyhighT, cloud100, cloud0, rainlimit, reset,buzzer#"
 
 // support functions
-// Switch from PWM mode (if it was enabled) for MLX90614
+// Switch from PWM mode (if it was enabled) for MLX90614  - using example from SoftWire library
 void exitPWM(void)
 {
     // Make SMBus request to force SMBus output instead of PWM
-    SoftWire::setSclLow(&i2c);
+    SoftWire::sclLow(&i2c);  // modified after lib update
     delay(3); // Must be > 1.44ms
-    SoftWire::setSclHigh(&i2c);
+    SoftWire::sclHigh(&i2c); // modified after lib update
     delay(2);
 }
 
-// routine to read data from MLX90614 IR sensor
+// routine to read data from MLX90614 IR sensor - using example from SoftWire library
 uint16_t readIRsensor(uint8_t command, uint8_t& crc)
 {
     heaterOff();  // to avoid interference
@@ -207,32 +206,32 @@ void ReadIR(void) //
     }
 
     ambient = tempamb/5;  // average value
-    skytemp = tempsky/5;  // average value
+    skyTemp = tempsky/5;  // average value
     // convert to centigrade
     ambient = (ambient / 50) - 273.15;  // conversion to centigrade
-    skytemp = (skytemp / 50) - 273.15;  // conversion to centigrade
+    skyTemp = (skyTemp / 50) - 273.15;  // conversion to centigrade
     
     // make adjustments to sky temp
-    skytemp -= ((ambient-(offset/10)) * gain / 100);  // main offset and gain
-    skytemp -= ((ambient * highT / 10.0) * (ambient * highT / 10.0) / 100.0);  //compensate for higher temperatures
-    adjtemp = skytemp; // decided that to broadcast skytemp, without clipping
+    skyTemp -= ((ambient-(skyOffset/10)) * skyGain / 100);  // main offset and gain
+    skyTemp -= ((ambient * highT / 10.0) * (ambient * highT / 10.0) / 100.0);  //compensate for higher temperatures
+    adjustTempIR = skyTemp; // decided that to broadcast skytemp, without clipping
     // automatic trim of limits SkyUL and SkyLL to sky temp extremes - but less than error state limits
-    if (adjtemp < skyTmin)
+    if (adjustTempIR < skyT_min)
     {
-        SkyLL = skyTmin;// very clear, less than limit
-        adjtemp = skyTmin;
+        skyLL = skyT_min;// very clear, less than limit
+        adjustTempIR = skyT_min;
     }
-    if (adjtemp > skyTmax)
+    if (adjustTempIR > skyT_max)
     {
-        SkyUL = skyTmax; // very cloudy
-        adjtemp = skyTmax;
+        skyUL = skyT_max; // very cloudy
+        adjustTempIR = skyT_max;
     }
     // otherwise modifiy SkyLL and SkyUL between outer limts
-    if (adjtemp < SkyLL && adjtemp > skyTmin)  SkyLL = adjtemp;// very clear, less than limit
-    if (adjtemp > SkyUL && adjtemp < skyTmax) SkyUL = adjtemp; // very cloudy
+    if (adjustTempIR < skyLL && adjustTempIR > skyT_min)  skyLL = adjustTempIR;// very clear, less than limit
+    if (adjustTempIR > skyUL && adjustTempIR < skyT_max) skyUL = adjustTempIR; // very cloudy
     
    // cloud cover calculation - ratio of sky temp between limits
-    cloudcover = 100 * (adjtemp - SkyLL) / (SkyUL - SkyLL);
+    cloudCover = 100 * (adjustTempIR - skyLL) / (skyUL - skyLL);
 }
 
 // output data string - floats have one DP - through FTDi cable or USB
@@ -247,7 +246,7 @@ void FTDi(void)
     Serial1.print(',');
     Serial1.print(pressure,2); // from BME
     Serial1.print(',');
-    Serial1.print(skytemp,2); // from MLX
+    Serial1.print(skyTemp,2); // from MLX
     Serial1.print(',');
     Serial1.print(ambient, 2); // from MLX
     Serial1.print(',');
@@ -255,7 +254,7 @@ void FTDi(void)
     Serial1.print(',');
     Serial1.print(rainRatio,2);  // ratio - not boolean
     Serial.print(',');
-    Serial.print(cloudcover, 2);  // percentage
+    Serial.print(cloudCover, 2);  // percentage
     Serial1.print('#');  // terminal character
 }
 
@@ -268,7 +267,7 @@ void USBserial(void)   // same as FTDi using alternative port
     Serial.print(',');
     Serial.print(pressure, 2); // from BME
     Serial.print(',');
-    Serial.print(skytemp, 2); // from MLX
+    Serial.print(skyTemp, 2); // from MLX
     Serial.print(',');
     Serial.print(ambient, 2); // from MLX
     Serial.print(',');
@@ -276,7 +275,7 @@ void USBserial(void)   // same as FTDi using alternative port
     Serial.print(',');
     Serial.print(rainRatio, 2);  // ratio - not boolean
     Serial.print(',');
-    Serial.print(cloudcover, 2);  // percentage
+    Serial.print(cloudCover, 2);  // percentage
     Serial.print('#');  // terminal character
 }
 
@@ -290,7 +289,7 @@ void monitor(void)
     Serial.print("  pressure:");
     Serial.print(pressure, 2);
     Serial.print("  sky temp:");
-    Serial.print(skytemp, 2);
+    Serial.print(skyTemp, 2);
     Serial.print("  object temp:");
     Serial.print(ambient, 2);
     Serial.print("  skymag:");
@@ -312,7 +311,7 @@ void SkyQuality(void)
     if (digitalRead(TSLpin)) duration = pulseInLong(TSLpin,LOW,lightTimeout);
     else    duration = pulseInLong(TSLpin, HIGH, lightTimeout);
     if (duration < 1) skymag = 99.9;  // error value (very bright)
-    else    skymag = (log((double)duration) / logmag) + magOffset;  // ASCOM driver allows for further trimming
+    else    skymag = (log((double)duration) / logMag) + magOffset;  // ASCOM driver allows for further trimming
 }
 
 // try to establish contact with BME sensor - sets OK flag
@@ -335,9 +334,9 @@ void ReadBME(void)
 {
     if (bme1Detected)
     {
-    tempC = bme1.readTempC() + temptrim;
-    humidity = bme1.readHumidity() + rhtrim;
-    pressure = bme1.readPressure() + hpatrim;
+    tempC = bme1.readTempC() + temperatureTrim;
+    humidity = bme1.readHumidity() + humidityTrim;
+    pressure = bme1.readPressure() + pressureTrim;
     }
 }
 
@@ -354,7 +353,7 @@ double raintime(void)
 // rain detection calculation - sets capacitive ratio - self adjusting limits
 void raining(void)
 {
-    rainRatio = (raintime() / drytime);
+    rainRatio = (raintime() / dryTime);
     if (rainRatio < 0.98) calibrateRain();  // update calibration if it gets dryer slightly less than 1 to accommodate noise)
 }
 
@@ -380,29 +379,29 @@ unsigned long getRCtime(void)
 // takes a rain sample and uses it as a baseline for ratio
 void calibrateRain(void)
 {
-    drytime = raintime();
+    dryTime = raintime();
 }
 
 // heaterOn checks for valid reasons to put heater on (wet, cold or high humidity) board LED used to indicate state
 // NTCpin is analog input representing rain sensor temperature
 void heaterOn(void)
 {
-    if ((rainRatio > RainHeatThresh) || (tempC < HeaterAmbThreshold) || (humidity > humiditythreshold)) // conditional heating (raining, cold and humid)   
+    if ((rainRatio > rainHeatThreshold) || (tempC < heaterAmbThreshold) || (humidity > humidityThreshold)) // conditional heating (raining, cold and humid)   
     {
-        if(analogRead(NTCpin) > NTCthreshold) digitalWrite(Heatpin, HIGH);  // prevents over heating (about 20C)
+        if(analogRead(NTCpin) > NTCthreshold) digitalWrite(heatPin, HIGH);  // prevents over heating (about 20C)
         digitalWrite(LED_BUILTIN, HIGH);  // for diagnostics
     }   
     else // turn heater off
     {
-        digitalWrite(Heatpin, LOW);
+        digitalWrite(heatPin, LOW);
         digitalWrite(LED_BUILTIN, LOW); // for diagnostics
     }    
    // periodic and initial heating of rain sensor, to clear condensation build-up
     if (( millis() < 60000) || ((millis() % 300000) < 60000))  // 60 seconds of heating at outset or every 5th minute for a minute
     {
-        if (analogRead(NTCpin) > NTCthreshold)  // prevents over heating (about 28C)
+        if (analogRead(NTCpin) > NTCthreshold)  // prevents over heating (about 25C)
         {
-            digitalWrite(Heatpin, HIGH); // heat for the first minute after turn on (override)
+            digitalWrite(heatPin, HIGH); // heat for the first minute after turn on (override)
             digitalWrite(LED_BUILTIN, HIGH);
         }
     }
@@ -411,21 +410,21 @@ void heaterOn(void)
 // simple routine to turn heater element off
 void heaterOff(void)  
 {
-    digitalWrite(Heatpin, LOW); 
+    digitalWrite(heatPin, LOW); 
     digitalWrite(LED_BUILTIN, LOW); // for diagnostics
 }
 
 // interrupt routine to set LEDreadout enable flag
 void displayLED(void)
 {
-    displaymode = true;
+    displayMode = true;
     display.showString("...");
 }
 
 // displaymode checks switch status and briefly turns on display, cycling around different output values
 void LEDreadout(void)
 {
-    if (displaymode)  // if switch pressed
+    if (displayMode)  // if switch pressed
         {
             display.showString("mag");
             delay(500);
@@ -447,7 +446,7 @@ void LEDreadout(void)
             delay(500);
             display.clear();
             delay(250);
-            display.showNumber(skytemp);
+            display.showNumber(skyTemp);
             delay(1000);
             display.clear();
             delay(250);
@@ -455,7 +454,7 @@ void LEDreadout(void)
             delay(500);
             display.clear();
             delay(250);
-            display.showNumber(cloudcover);
+            display.showNumber(cloudCover);
             delay(1000);
             display.clear();     
             delay(250);
@@ -484,28 +483,28 @@ void LEDreadout(void)
             else display.showString("dry");
             delay(1000);
             display.clear();
-            displaymode = false;  // clear display flag
+            displayMode = false;  // clear display flag
     }    
 }
 
 void populate()  // update more convenient global variables from incoming stream
 {
-    magOffset = NanoStatus[mag].toDouble();
-    rhtrim = NanoStatus[RH].toDouble();
-    hpatrim = NanoStatus[hPa].toDouble();
-    temptrim = NanoStatus[temp].toDouble();
-    gain = NanoStatus[skygain].toDouble();
-    offset = NanoStatus[skyoffset].toDouble();
-    highT = NanoStatus[skyhighT].toDouble();
-    SkyUL = NanoStatus[cloud100].toDouble();
-    SkyLL = NanoStatus[cloud0].toDouble();
-    rainalarm = NanoStatus[rainlimit].toDouble();
-    restart = NanoStatus[reset];
-    buzzenable = NanoStatus[buzzer];
-    if (SkyUL == SkyLL) // trap error condition if EEPROM is messed up
+    magOffset = nanoStatus[mag].toDouble();
+    humidityTrim = nanoStatus[RH].toDouble();
+    pressureTrim = nanoStatus[hPa].toDouble();
+    temperatureTrim = nanoStatus[temp].toDouble();
+    skyGain = nanoStatus[skygain].toDouble();
+    skyOffset = nanoStatus[skyoffset].toDouble();
+    highT = nanoStatus[skyhighT].toDouble();
+    skyUL = nanoStatus[cloud100].toDouble();
+    skyLL = nanoStatus[cloud0].toDouble();
+    rainAlarm = nanoStatus[rainlimit].toDouble();
+    restart = nanoStatus[reset];
+    buzzEnable = nanoStatus[buzzer];
+    if (skyUL == skyLL) // trap error condition if EEPROM is messed up
     {
-        SkyUL = 10;
-        SkyLL = -10;
+        skyUL = 10;
+        skyLL = -10;
     }
 }
 
@@ -516,12 +515,12 @@ void splitStrings(String str, char dl)
     int i = 0; // clear character counter
     int param = 0; // clear word counter
     word = "";
-    while (str[i] != '#' && i < str.length() && param < (wordlength+1)) 
+    while (str[i] != '#' && i < str.length() && param < (messageParameters+1)) 
     {
         if (str[i] != dl) word += str[i];  // build up word
         else // conclude word when you get delimiter
         {
-            NanoStatus[param] = word;
+            nanoStatus[param] = word;
             param++;
             word = "";
         }
@@ -534,7 +533,7 @@ void updateEEPROM()
 {
     int i;
     EEPROM.write(0, '$');
-    for (i = 0; (i < cmd.length() && cmd.length()<(6*wordlength)); i++)
+    for (i = 0; (i < cmd.length() && cmd.length()<(6*messageParameters)); i++)
         EEPROM.write(i+1, cmd[i]);
     EEPROM.write(cmd.length()+1, '#'); // write framing terminator
     //display.showNumber((int)cmd.length()); // for diagnostics
@@ -553,7 +552,7 @@ bool readfromEEPROM()
     cmd = ""; // initialize command string
     int index = 1;
     c = EEPROM.read(index);
-    while (c != '#' && index <(6*wordlength)) // until terminator character or max chars reached
+    while (c != '#' && index <(6*messageParameters)) // until terminator character or max chars reached
     {
         cmd = cmd + c;  // build command word
         index++;
@@ -571,13 +570,13 @@ void setup(void)
     pinMode(TSLpin, INPUT); // light sensor input
     pinMode(rainSensorOutPin, OUTPUT); // used for sending pulses
     pinMode(rainSensorInPin, INPUT);  // used for reading pulse decay
-    pinMode(Heatpin, OUTPUT);  // to transistor to turn on heater on rain sensor
-    pinMode(Readoutpin, INPUT_PULLUP);  //input pin from momentary action switch
-    attachInterrupt(digitalPinToInterrupt(Readoutpin), displayLED, LOW);
-    pinMode(RelayPin, OUTPUT);  // buzzer output
+    pinMode(heatPin, OUTPUT);  // to transistor to turn on heater on rain sensor
+    pinMode(readoutPin, INPUT_PULLUP);  //input pin from momentary action switch
+    attachInterrupt(digitalPinToInterrupt(readoutPin), displayLED, LOW);
+    pinMode(relayPin, OUTPUT);  // buzzer output
     analogReference(EXTERNAL);  // uses AREF pin
     // setups
-    digitalWrite(RelayPin, LOW); // turn buzzer off
+    digitalWrite(relayPin, LOW); // turn buzzer off
     heaterOff(); // turn off heater at beginning
     display.clear();
     display.setBrightness(BRIGHT_LOW);  // LED brightness
@@ -608,7 +607,7 @@ void setup(void)
     // read calibration coefficients
     if (readfromEEPROM())
     {
-        splitStrings(cmd, delim);
+        splitStrings(cmd, messageDelimeter);
         populate(); // read values from eeprom and put into cmd string (if valid)
     }
     // initial sensor sampling
@@ -621,25 +620,25 @@ void setup(void)
 void loop(void)
 {   
     SkyQuality(); // read sky magnitude every 2 minutes
-    for (int pace=1; pace < 31; pace++)
+    for (int cadence = 1; cadence < 31; cadence++)
     {
         heaterOff();
         if (Serial.available() > 0)  // check to see if ASCOM driver is disabling buzzer
         {
             cmd = Serial.readStringUntil('#');
-            splitStrings(cmd, delim); // parameterize the string
+            splitStrings(cmd, messageDelimeter); // parameterize the string
             populate(); // store parameters into variables
-            if (buzzenable == "buzz off") 
+            if (buzzEnable == "buzz off") 
             {
                 buzz = false;
-                digitalWrite(RelayPin, LOW);   // buzzer or relay off
+                digitalWrite(relayPin, LOW);   // buzzer or relay off
             }
-            if (buzzenable == "buzz on")
+            if (buzzEnable == "buzz on")
             {
                 buzz = true;
-                digitalWrite(RelayPin, HIGH);   // buzzer or relay on
+                digitalWrite(relayPin, HIGH);   // buzzer or relay on
                 delay(1000);
-                digitalWrite(RelayPin, LOW);   // buzzer or relay off
+                digitalWrite(relayPin, LOW);   // buzzer or relay off
             }
 
             if (restart == "reset")
@@ -654,23 +653,23 @@ void loop(void)
             updateEEPROM();
         }
         raining(); // measure every 4 seconds
-        if (rainRatio > rainalarm)
+        if (rainRatio > rainAlarm)
         {
-            rainblink = !rainblink; // toggle display
-            if (rainblink) display.showString("rAIn");
+            blinkRain = !blinkRain; // toggle display
+            if (blinkRain) display.showString("rAIn");
             else display.clear();
-            if (buzz) digitalWrite(RelayPin, HIGH);   // buzzer or relay on
-            else digitalWrite(RelayPin, LOW); //buzzer off
+            if (buzz) digitalWrite(relayPin, HIGH);   // buzzer or relay on
+            else digitalWrite(relayPin, LOW); //buzzer off
             heaterOn();
         }
         else
         {
-            digitalWrite(RelayPin, LOW); // buzzer or relay off
+            digitalWrite(relayPin, LOW); // buzzer or relay off
             display.clear();
         }
         
         heaterOn();
-        if ((pace % 10) == 0)  // every 40 seconds
+        if ((cadence % 10) == 0)  // every 40 seconds
         {
             heaterOff();
             delay(100);

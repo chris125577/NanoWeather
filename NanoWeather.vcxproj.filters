@@ -13,13 +13,383 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{3942fc59-c22a-490e-ba79-b21ff554a4ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly">
+      <UniqueIdentifier>{56012f8d-0e00-4827-a350-815d09db4915}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\core">
+      <UniqueIdentifier>{1fa9fa80-2689-47ad-986f-84f84dd13108}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\core\api">
+      <UniqueIdentifier>{1ef87ab0-6a47-4163-b2fa-a4eb1f1dd60a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\core\api\deprecated">
+      <UniqueIdentifier>{66358bfb-16d8-451f-9440-f837365696ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\core\api\deprecated-avr-comp">
+      <UniqueIdentifier>{719ae9ee-2bc9-4bce-86be-ac1bb531090d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\core\api\deprecated-avr-comp\avr">
+      <UniqueIdentifier>{afe4aca4-4777-4107-b54e-66c84009af60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\libraries">
+      <UniqueIdentifier>{18b979d1-eb9c-41e5-8fe7-739c4a1705ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\libraries\SoftwareSerial">
+      <UniqueIdentifier>{2d9148a4-f00d-4645-b3bd-1fd971d742cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\libraries\AsyncDelay">
+      <UniqueIdentifier>{cfdb60d8-dc3e-4f61-9d48-3f2583baa521}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\libraries\TM1637TinyDisplay">
+      <UniqueIdentifier>{d1c996e3-b831-439e-9e64-d53b64bda924}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\libraries\Wire">
+      <UniqueIdentifier>{3789e186-9a60-4245-856e-208f9cb8e822}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\libraries\BlueDot_BME280_Library">
+      <UniqueIdentifier>{731cea99-39c5-41a0-ad01-f6d1644455eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\libraries\EEPROM">
+      <UniqueIdentifier>{02aae048-687a-404c-b785-8f1600fe676e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\libraries\SoftWire">
+      <UniqueIdentifier>{069ebdb2-88ed-48e8-8621-92c8b4b08d9d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="__vm\.NanoWeather.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\Arduino.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\CDC.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\MSC.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\NANO_compat.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\new.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\UART.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\UART_private.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\UNO_compat.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\USBCore.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\wiring_private.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\ArduinoAPI.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\Binary.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\Client.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\Common.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\Compat.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\HardwareI2C.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\HardwareSerial.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\HardwareSPI.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\Interrupts.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\IPAddress.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\itoa.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\PluggableUSB.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\Print.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\Printable.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\RingBuffer.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\Server.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\Stream.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\String.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\Udp.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\USBAPI.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\WCharacter.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\deprecated\Client.h">
+      <Filter>src\_micro-api-readonly\core\api\deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\deprecated\HardwareSerial.h">
+      <Filter>src\_micro-api-readonly\core\api\deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\deprecated\IPAddress.h">
+      <Filter>src\_micro-api-readonly\core\api\deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\deprecated\Print.h">
+      <Filter>src\_micro-api-readonly\core\api\deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\deprecated\Printable.h">
+      <Filter>src\_micro-api-readonly\core\api\deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\deprecated\Server.h">
+      <Filter>src\_micro-api-readonly\core\api\deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\deprecated\Stream.h">
+      <Filter>src\_micro-api-readonly\core\api\deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\deprecated\Udp.h">
+      <Filter>src\_micro-api-readonly\core\api\deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\deprecated\WString.h">
+      <Filter>src\_micro-api-readonly\core\api\deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\deprecated-avr-comp\avr\dtostrf.h">
+      <Filter>src\_micro-api-readonly\core\api\deprecated-avr-comp\avr</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\deprecated-avr-comp\avr\interrupt.h">
+      <Filter>src\_micro-api-readonly\core\api\deprecated-avr-comp\avr</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\deprecated-avr-comp\avr\pgmspace.h">
+      <Filter>src\_micro-api-readonly\core\api\deprecated-avr-comp\avr</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\variants\nona4809\pins_arduino.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\variants\nona4809\timers.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\libraries\SoftwareSerial\src\SoftwareSerial.h">
+      <Filter>src\_micro-api-readonly\libraries\SoftwareSerial</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\Documents\Arduino\libraries\AsyncDelay\src\AsyncDelay.h">
+      <Filter>src\_micro-api-readonly\libraries\AsyncDelay</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\Documents\Arduino\libraries\TM1637TinyDisplay\TM1637TinyDisplay.h">
+      <Filter>src\_micro-api-readonly\libraries\TM1637TinyDisplay</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\Documents\Arduino\libraries\TM1637TinyDisplay\TM1637TinyDisplay6.h">
+      <Filter>src\_micro-api-readonly\libraries\TM1637TinyDisplay</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\libraries\Wire\src\Wire.h">
+      <Filter>src\_micro-api-readonly\libraries\Wire</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\libraries\Wire\src\utility\twi.h">
+      <Filter>src\_micro-api-readonly\libraries\Wire</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\Documents\Arduino\libraries\BlueDot_BME280_Library\BlueDot_BME280.h">
+      <Filter>src\_micro-api-readonly\libraries\BlueDot_BME280_Library</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\Documents\Arduino\libraries\BlueDot_BME280_Library\src\BlueDot_BME280.h">
+      <Filter>src\_micro-api-readonly\libraries\BlueDot_BME280_Library</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\libraries\EEPROM\src\EEPROM.h">
+      <Filter>src\_micro-api-readonly\libraries\EEPROM</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\chris\Documents\Arduino\libraries\SoftWire\src\SoftWire.h">
+      <Filter>src\_micro-api-readonly\libraries\SoftWire</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NanoWeather.ino" />
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\abi.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\CDC.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\hooks.c">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\main.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\NANO_compat.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\new.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\Tone.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\UART.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\UART0.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\UART1.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\UART2.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\UART3.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\UNO_compat.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\USBCore.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\WInterrupts.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\wiring.c">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\wiring_analog.c">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\wiring_digital.c">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\wiring_pulse.c">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\wiring_shift.c">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\WMath.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\Common.cpp">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\IPAddress.cpp">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\PluggableUSB.cpp">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\Print.cpp">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\Stream.cpp">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\api\String.cpp">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\variants\nona4809\variant.c">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\libraries\SoftwareSerial\src\SoftwareSerial.cpp">
+      <Filter>src\_micro-api-readonly\libraries\SoftwareSerial</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\Documents\Arduino\libraries\TM1637TinyDisplay\TM1637TinyDisplay.cpp">
+      <Filter>src\_micro-api-readonly\libraries\TM1637TinyDisplay</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\Documents\Arduino\libraries\TM1637TinyDisplay\TM1637TinyDisplay6.cpp">
+      <Filter>src\_micro-api-readonly\libraries\TM1637TinyDisplay</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\libraries\Wire\src\Wire.cpp">
+      <Filter>src\_micro-api-readonly\libraries\Wire</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\libraries\Wire\src\utility\twi.c">
+      <Filter>src\_micro-api-readonly\libraries\Wire</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\Documents\Arduino\libraries\BlueDot_BME280_Library\BlueDot_BME280.cpp">
+      <Filter>src\_micro-api-readonly\libraries\BlueDot_BME280_Library</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\Documents\Arduino\libraries\BlueDot_BME280_Library\src\BlueDot_BME280.cpp">
+      <Filter>src\_micro-api-readonly\libraries\BlueDot_BME280_Library</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chris\Documents\Arduino\libraries\SoftWire\src\SoftWire.cpp">
+      <Filter>src\_micro-api-readonly\libraries\SoftWire</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\cores\arduino\wiring_pulse.S">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </None>
+    <None Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\libraries\SoftwareSerial\library.properties">
+      <Filter>src\_micro-api-readonly\libraries\SoftwareSerial</Filter>
+    </None>
+    <None Include="C:\Users\chris\Documents\Arduino\libraries\AsyncDelay\library.properties">
+      <Filter>src\_micro-api-readonly\libraries\AsyncDelay</Filter>
+    </None>
+    <None Include="C:\Users\chris\Documents\Arduino\libraries\TM1637TinyDisplay\library.json">
+      <Filter>src\_micro-api-readonly\libraries\TM1637TinyDisplay</Filter>
+    </None>
+    <None Include="C:\Users\chris\Documents\Arduino\libraries\TM1637TinyDisplay\library.properties">
+      <Filter>src\_micro-api-readonly\libraries\TM1637TinyDisplay</Filter>
+    </None>
+    <None Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\libraries\Wire\library.properties">
+      <Filter>src\_micro-api-readonly\libraries\Wire</Filter>
+    </None>
+    <None Include="C:\Users\chris\Documents\Arduino\libraries\BlueDot_BME280_Library\library.properties">
+      <Filter>src\_micro-api-readonly\libraries\BlueDot_BME280_Library</Filter>
+    </None>
+    <None Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\libraries\EEPROM\library.properties">
+      <Filter>src\_micro-api-readonly\libraries\EEPROM</Filter>
+    </None>
+    <None Include="C:\Users\chris\Documents\Arduino\libraries\SoftWire\library.properties">
+      <Filter>src\_micro-api-readonly\libraries\SoftWire</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\libraries\SoftwareSerial\keywords.txt">
+      <Filter>src\_micro-api-readonly\libraries\SoftwareSerial</Filter>
+    </Text>
+    <Text Include="C:\Users\chris\Documents\Arduino\libraries\AsyncDelay\keywords.txt">
+      <Filter>src\_micro-api-readonly\libraries\AsyncDelay</Filter>
+    </Text>
+    <Text Include="C:\Users\chris\Documents\Arduino\libraries\AsyncDelay\license.txt">
+      <Filter>src\_micro-api-readonly\libraries\AsyncDelay</Filter>
+    </Text>
+    <Text Include="C:\Users\chris\Documents\Arduino\libraries\TM1637TinyDisplay\keywords.txt">
+      <Filter>src\_micro-api-readonly\libraries\TM1637TinyDisplay</Filter>
+    </Text>
+    <Text Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\libraries\Wire\keywords.txt">
+      <Filter>src\_micro-api-readonly\libraries\Wire</Filter>
+    </Text>
+    <Text Include="C:\Users\chris\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.7\libraries\EEPROM\keywords.txt">
+      <Filter>src\_micro-api-readonly\libraries\EEPROM</Filter>
+    </Text>
+    <Text Include="C:\Users\chris\Documents\Arduino\libraries\SoftWire\LICENSE.txt">
+      <Filter>src\_micro-api-readonly\libraries\SoftWire</Filter>
+    </Text>
   </ItemGroup>
 </Project>
